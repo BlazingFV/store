@@ -1,0 +1,32 @@
+{
+
+  "loginSupplier" : "تسجيل دخول المورد",
+  "numberPhone" : " الايميل او رقم الهاتف",
+  "password" : "كلمة المرور",
+  "login" : "تسجيل دخول",
+
+  "product" : "المنتجات",
+  "order" : "الطلبات",
+
+  "OrderNumber" : "رقم الطلب",
+  "OrderDate" : "تاريخ الطلب",
+  "Delivery" : "طريقة التوصيل",
+  "Payment" : "طريقة الدفع",
+  "Totalprice" : "اجمالي الفاتورة",
+  "OrderDetails" : "تفاصيل الطلب",
+
+  "DoneOrder" : "تم التفيذ",
+  "Inpreparation" : "قيد التجهيذ",
+  "InDelivery" : "قيد التوصيل",
+  "DoneDelivery" : "تم التوصيل ",
+
+  "numberOrder" : "رقم الطلب",
+  "price" : "السعر",
+  "RequiredQuantity" : "الكمية المطلوبة",
+  "TotalPrice" : "اجمالي السعر",
+  "RequiredProperties" : "الخصائص المطلوبة",
+  "buttonTitle" : "EN",
+  "Changelanguage" : " تغيير اللغة",
+  "ErrorUserLogin" : "خطا في كلمة المرور او اسم المستخدم"
+
+}

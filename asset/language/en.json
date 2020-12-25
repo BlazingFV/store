@@ -1,0 +1,34 @@
+{
+
+  "loginSupplier" : "login Supplier",
+  "numberPhone" : "Email Or Phone number",
+  "password" : "password",
+  "login" : "login",
+
+  "product" : "Products",
+  "order" : "Orders",
+
+  "OrderNumber" : "Order Number",
+  "OrderDate" : "Order Date",
+  "Delivery" : "Delivery method",
+  "Payment" : "Payment method",
+  "Totalprice" : "Total price",
+  "OrderDetails" : "Order Details",
+
+  "DoneOrder" : "accepted",
+  "Inpreparation" : "processing",
+  "InDelivery" : "In Delivery",
+  "DoneDelivery" : "Delivered ",
+
+  "numberOrder" : "Order number",
+  "price" : "price",
+  "RequiredQuantity" : "Required Quantity",
+  "TotalPrice" : "Total Price",
+  "RequiredProperties" : "Required features",
+  "buttonTitle" : "AR",
+  "Changelanguage" : "Change language",
+  "ErrorUserLogin" : "error in the password or username"
+
+
+
+}
