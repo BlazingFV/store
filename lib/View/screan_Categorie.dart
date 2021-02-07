@@ -1,5 +1,4 @@
 import 'package:Khaldiya/Api/requestApi.dart';
-import 'package:Khaldiya/LocalData/Data_productes.dart';
 import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/View/screan_Producte.dart';
 import 'package:flutter/material.dart';

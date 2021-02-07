@@ -9,7 +9,7 @@
   import 'package:shared_preferences/shared_preferences.dart';
 
 
-  String UrlApi = "http://aljabriyafruitsq8.com/Jabriya/public/api";
+  String UrlApi = "http://khedmtk.com/jabria/api";
 
   String MacAddress;
 

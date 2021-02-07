@@ -1,11 +1,9 @@
-import 'package:Khaldiya/StateManagement/State_Cart.dart';
 import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:flutter/material.dart';
-import '../HomeApp.dart';
 import '../ToolsApp/WidgetApp.dart';
 
 
-Widget Button_CartAppBar({BuildContext context, State_Cart cart ,Function onTap ,String cartLength}) {
+Widget Button_CartAppBar({BuildContext context,Function onTap ,String cartLength}) {
   return GestureDetector(
     onTap:onTap,
     child: new Container(
