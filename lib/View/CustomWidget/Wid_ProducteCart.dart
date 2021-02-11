@@ -18,17 +18,6 @@ class Wid_ProducteCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation==Orientation.portrait ? heightQuery*0.022 :widthQuery * 0.022 ;
-    double fontsizeKD = orientation==Orientation.portrait ? heightQuery*0.017 :widthQuery * 0.017 ;
-    double fontsizeName = orientation==Orientation.portrait ? heightQuery*0.018 :widthQuery * 0.018 ;
-    double fontsizePrice = orientation==Orientation.portrait ? heightQuery*0.025 :widthQuery * 0.025 ;
-
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5,vertical:0),
       padding: const EdgeInsets.only(left: 5,right:5,bottom: 15,top: 5),
@@ -63,7 +52,7 @@ class Wid_ProducteCart extends StatelessWidget {
               //============== اسم المنتج======
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: new Text("${Product.name}",style: TextStyle(fontSize:fontsizeName)),
+                child: new Text("${Product.name}",style: TextStyle(fontSize:an.fontSize())),
               ),
 
               new Row(
@@ -89,7 +78,7 @@ class Wid_ProducteCart extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: new Text("${Product.qty}",
-                          style: TextStyle(fontFamily: "BebasNeue",fontSize:fontsize),),
+                          style: TextStyle(fontFamily: "BebasNeue",fontSize:an.fontSize()),),
                       ),
 
 
@@ -110,9 +99,9 @@ class Wid_ProducteCart extends StatelessWidget {
 
                   new Row(
                     children: <Widget>[
-                      new Text("K.D",style: TextStyle(fontSize:fontsizeKD)),
+                      new Text("K.D",style: TextStyle(fontSize:an.fontSize())),
                       SizedBox(width:3),
-                      new Text("${Product.price}",style: TextStyle(fontSize: fontsizePrice,fontFamily: "BebasNeue")),
+                      new Text("${Product.price}",style: TextStyle(fontSize: an.fontSize(),fontFamily: "BebasNeue")),
                     ],
                   ),
                 ],

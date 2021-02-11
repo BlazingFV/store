@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 class Wid_slideShow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
     return new Container(
       margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
       height: 180,

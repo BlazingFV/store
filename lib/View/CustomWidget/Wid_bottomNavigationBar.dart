@@ -10,11 +10,6 @@ class Wid_bottomNavigationBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation==Orientation.portrait ? heightQuery*0.022 :widthQuery * 0.022 ;
-
     return Container(
       height: 80,
       padding: EdgeInsets.only(bottom: 25,right: 20,left: 20),
@@ -27,7 +22,7 @@ class Wid_bottomNavigationBar extends StatelessWidget{
                       radiusButton: 5,
                       onTap:onTapAddToCart,
                       colorButton: anGreen,
-                      fontSize: fontsize+2,
+                      fontSize: an.fontSize()+2,
                       textButton: "اضافة للسلة"
                   )
               )),

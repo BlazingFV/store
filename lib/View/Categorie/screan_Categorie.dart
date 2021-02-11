@@ -1,9 +1,11 @@
 import 'package:Khaldiya/Api/requestApi.dart';
 import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
-import 'package:Khaldiya/View/screan_Producte.dart';
+import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
+import 'package:Khaldiya/View/product/screan_Producte.dart';
 import 'package:flutter/material.dart';
-import 'CustomWidget/MyDrawer.dart';
-import 'CustomWidget/Wid_product.dart';
+import '../CustomWidget/MyDrawer.dart';
+import '../CustomWidget/Wid_product.dart';
+import 'package:get/get.dart';
 
 class screan_Categorie extends StatefulWidget {
   final int id;
@@ -17,22 +19,16 @@ class screan_Categorie extends StatefulWidget {
 }
 
 class _screan_CategorieState extends State<screan_Categorie> {
-
-
   @override
   Widget build(BuildContext context) {
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-
-
         //=================================drawer===============
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          // title: Text("${widget.nameCategorie}" , style: TextStyle(fontSize: heightQuery*0.022)),
+          title: an.text(widget.nameCategorie),
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
@@ -53,25 +49,22 @@ class _screan_CategorieState extends State<screan_Categorie> {
               return CustomScrollView(
                 physics: BouncingScrollPhysics(),
                 slivers: <Widget>[
-                  //----SliverList Widget-----------------
-                  SliverList(
-                      delegate: SliverChildListDelegate([
-                    new Container(
-                      // margin: EdgeInsets.symmetric(horizontal: 2,vertical: 3),
-                      height: 180,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage("${widget.imageCategorie}"))),
-                      child: Center(
-                          child: Text(
-                        "${widget.nameCategorie}",
-                        style: TextStyle(
-                            fontSize: heightQuery * 0.030, color: Colors.white),
-                      )),
-                    ),
-                  ])),
+
+
+                  //---- SliverList Widget Header Image -----------------
+                  // SliverList(
+                  //     delegate: SliverChildListDelegate([
+                  //   new Container(
+                  //     height: 180,
+                  //     decoration: BoxDecoration(
+                  //         image: DecorationImage(
+                  //             fit: BoxFit.cover,
+                  //             image: NetworkImage("${widget.imageCategorie}"))),
+                  //     child: Center(
+                  //       child: an.text(widget.nameCategorie),
+                  //     ),
+                  //   ),
+                  // ])),
 
                   //---SliverGrid Product-----------------
                   SliverGrid(
@@ -85,13 +78,8 @@ class _screan_CategorieState extends State<screan_Categorie> {
                               productPrice: producte.productPrice,
                               productRealPrice: producte.productRealPrice,
                             ),
-
                             onTapAddToCart: () {print("اضافة المنتج للسلة$index");},
-
-                            onTapProducte: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)
-                              => screan_Producte(id: producte.id,),));
-                              },
+                            onTapProducte: () {Get.to(ScreenProduct(id: producte.id,));},
                           );
                         },
                         childCount: dataProductCateroy.length == null ? 0 : dataProductCateroy.length,

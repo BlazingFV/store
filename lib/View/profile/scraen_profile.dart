@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'CustomWidget/MyDrawer.dart';
-import '../View/ToolsApp/StyleApp.dart';
-import '../View/ToolsApp/WidgetApp.dart';
-import 'ToolsApp/scraen_MyOrder.dart';
-import '../FuncationApp.dart';
+import '../CustomWidget/MyDrawer.dart';
+import '../ToolsApp/StyleApp.dart';
+import '../ToolsApp/WidgetApp.dart';
+import '../ToolsApp/scraen_MyOrder.dart';
+import '../../FuncationApp.dart';
 
 
 class screan_profile extends StatelessWidget {

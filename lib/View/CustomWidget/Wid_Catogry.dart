@@ -11,11 +11,6 @@ class Wid_Catogry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation==Orientation.portrait ? heightQuery*0.022 :widthQuery * 0.022 ;
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -29,7 +24,7 @@ class Wid_Catogry extends StatelessWidget {
               placeholder: (context, url) => Image.asset("asset/Image/tenor.gif"),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-            Center(child: Text("${categories.name}",style: TextStyle(color: Colors.black,fontSize:fontsize),)),
+            Center(child: Text("${categories.name}",style: TextStyle(color: Colors.black,fontSize:an.fontSize()),)),
           ],
         ),
         decoration: BoxDecoration(

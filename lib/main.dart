@@ -1,6 +1,8 @@
 import'package:flutter/material.dart';
-import 'View/HomeApp.dart';
+import 'package:get/get.dart';
+import 'View/Home/HomeApp.dart';
 import 'View/ToolsApp/StyleApp.dart';
+import 'View/cart/screan_Cart.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Almarai",

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'HomeApp.dart';
-import 'ToolsApp/StyleApp.dart';
-import 'ToolsApp/WidgetApp.dart';
+import '../Home/HomeApp.dart';
+import '../ToolsApp/StyleApp.dart';
+import '../ToolsApp/WidgetApp.dart';
 
 class screan_DoneOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation==Orientation.portrait ? heightQuery*0.022 :widthQuery * 0.022 ;
 
     return Directionality(textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -19,16 +15,16 @@ class screan_DoneOrder extends StatelessWidget {
           child: my_ButtonIcon(
             onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomeApp(),));},
             textButton: "العودة للصفحة للرئيسية",
-            fontSize:fontsize,
+            fontSize:an.fontSize(),
             icon: Icons.home,
             colorButton: anGreen
           ),
         ),
-        
+
 
         body: ListView(
           children: <Widget>[
-            new SizedBox(height: heightQuery *0.1),
+            new SizedBox(height: an.heightQuery() *0.1),
             new CircleAvatar(
               minRadius: 60,
               backgroundColor:anGreen,
@@ -38,13 +34,13 @@ class screan_DoneOrder extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.only(top: 20,bottom: 40),
-              child: new Text("تم تنفيذ الطلب بنجاح",style: TextStyle(fontSize:fontsize),textAlign: TextAlign.center),
+              child: new Text("تم تنفيذ الطلب بنجاح",style: TextStyle(fontSize:an.fontSize()),textAlign: TextAlign.center),
             ),
 
 
             new Container(
               height: 250,
-              width: widthQuery,
+              width: an.widthQuery(),
               margin: EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: Colors.grey[100],

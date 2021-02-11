@@ -49,7 +49,7 @@ class an {
           textAlign: textAlign == null ? TextAlign.center : textAlign,
           style: TextStyle(
               fontSize: size == null ? fontSize() : size,
-              color: color == null ? Colors.white : color,
+              color: color == null ? Colors.black: color,
               fontFamily: family,
               height: height,
               fontWeight: fontWeight,

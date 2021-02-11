@@ -14,18 +14,6 @@ class Wid_product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation == Orientation.portrait
-        ? heightQuery * 0.022
-        : widthQuery * 0.022;
-    double fontsizeName = orientation == Orientation.portrait
-        ? heightQuery * 0.018
-        : widthQuery * 0.018;
-    double fontsizePrice = orientation == Orientation.portrait
-        ? heightQuery * 0.025
-        : widthQuery * 0.025;
     String nameProduct = "${product.name}";
 
     return GestureDetector(
@@ -63,7 +51,7 @@ class Wid_product extends StatelessWidget {
                             ? nameProduct.substring(0, 50) + "..."
                             : nameProduct,
                         style: TextStyle(
-                            fontSize: fontsizeName, color: Colors.grey[900]),
+                            fontSize: an.fontSize()-5, color: Colors.grey[900]),
                         textAlign: TextAlign.center,
                       ),
 
@@ -78,7 +66,7 @@ class Wid_product extends StatelessWidget {
                                 new Text(
                                   "${product.productPrice == "0.000" ? "" :product.productPrice }",
                                   style: TextStyle(
-                                      fontSize: fontsizeName+3,
+                                      fontSize: an.fontSize()+3,
                                       fontFamily: "BebasNeue",
                                       color: Colors.grey,
                                       decoration:TextDecoration.lineThrough),
@@ -88,10 +76,10 @@ class Wid_product extends StatelessWidget {
 
                             new Row(
                               children: <Widget>[
-                                new Text("KD ", style: TextStyle(fontSize: fontsizeName),
+                                new Text("KD ", style: TextStyle(fontSize: an.fontSize()-4),
                                 ),
                                 new Text(
-                                  "${product.productRealPrice}", style: TextStyle(fontSize: fontsizePrice, fontFamily: "BebasNeue"),
+                                  "${product.productRealPrice}", style: TextStyle(fontSize: an.fontSize()+4, fontFamily: "BebasNeue"),
                                 ),
                               ],
                             ),

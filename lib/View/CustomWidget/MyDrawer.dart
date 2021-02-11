@@ -1,12 +1,11 @@
 import 'dart:io';
-
-import 'package:Khaldiya/View/ToolsApp/scraen_MyOrder.dart';
+import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../FuncationApp.dart';
-import '../HomeApp.dart';
-import '../scraen_profile.dart';
-import '../screan_Conditions.dart';
+import '../Home/HomeApp.dart';
+import '../profile/scraen_profile.dart';
+import '../Conditions/screan_Conditions.dart';
 
 class MyDrawer extends StatelessWidget {
 
@@ -30,10 +29,6 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation==Orientation.portrait ? heightQuery*0.022 :widthQuery * 0.022 ;
 
     return Drawer(
       child: ListView(
@@ -47,9 +42,8 @@ class MyDrawer extends StatelessWidget {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeApp(),));
 
               },
-            title:Text("الرئيسية",style: TextStyle(fontSize: fontsize),),
+            title:Text("الرئيسية",style: TextStyle(fontSize:an.fontSize()),),
             leading: Icon(Icons.home,size: 35,color: Colors.black,),
-//            leading: Image.asset("asset/images/iconeshome.png",scale: 2.3,),
           ),
 
 
@@ -59,7 +53,7 @@ class MyDrawer extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => screan_profile(),));
               },
-            title:Text("حسابي",style: TextStyle(fontSize: fontsize),),
+            title:Text("حسابي",style: TextStyle(fontSize: an.fontSize()),),
             leading: Image.asset("asset/Image/logooffer.png",scale:3.5),
           ),
 
@@ -69,7 +63,7 @@ class MyDrawer extends StatelessWidget {
             onTap:(){
 
             },
-            title:Text("مواعيد العمل",style: TextStyle(fontSize: fontsize),),
+            title:Text("مواعيد العمل",style: TextStyle(fontSize: an.fontSize()),),
             leading: Icon(Icons.timer,color:Colors.black,size: 35,),
           ),
 
@@ -77,7 +71,7 @@ class MyDrawer extends StatelessWidget {
             onTap:(){
               shareData(context);
             },
-            title:Text("مشاركة التطبيق",style: TextStyle(fontSize: fontsize),),
+            title:Text("مشاركة التطبيق",style: TextStyle(fontSize: an.fontSize()),),
             leading: Image.asset("asset/Image/shaer.png",scale:5.2),
           ),
 
@@ -89,7 +83,7 @@ class MyDrawer extends StatelessWidget {
                 _playgoogle();
               }
             },
-            title:Text("تقييم التطبيق",style: TextStyle(fontSize: fontsize),),
+            title:Text("تقييم التطبيق",style: TextStyle(fontSize: an.fontSize()),),
             leading: Icon(Icons.star,color: Colors.amber,size: 33),
           ),
 
@@ -97,7 +91,7 @@ class MyDrawer extends StatelessWidget {
             onTap:(){
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => screan_Conditions()));},
-            title:Text("الشروط والاحكام",style: TextStyle(fontSize: fontsize),),
+            title:Text("الشروط والاحكام",style: TextStyle(fontSize: an.fontSize()),),
             leading: Image.asset("asset/Image/logofile.png",scale:4.5),
           ),
 

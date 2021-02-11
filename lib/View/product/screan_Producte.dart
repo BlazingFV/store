@@ -1,21 +1,23 @@
 import 'package:Khaldiya/Api/requestApi.dart';
-import 'package:Khaldiya/View/screan_Cart.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:Khaldiya/View/cart/screan_Cart.dart';
 import 'package:flutter/material.dart';
-import './ToolsApp/StyleApp.dart';
-import 'CustomWidget/Wid_bottomNavigationBar.dart';
+import '../ToolsApp/StyleApp.dart';
+import '../CustomWidget/Wid_bottomNavigationBar.dart';
 import 'package:flutter/services.dart';
 import 'package:get_mac/get_mac.dart';
+import 'package:get/get.dart';
 
-class screan_Producte extends StatefulWidget {
+import 'SlideProduct.dart';
+
+class ScreenProduct extends StatefulWidget {
   final int id;
-  const screan_Producte({Key key, this.id}) : super(key: key);
+  const ScreenProduct({Key key, this.id}) : super(key: key);
 
   @override
-  _screan_ProducteState createState() => _screan_ProducteState();
+  _ScreenProductState createState() => _ScreenProductState();
 }
 
-class _screan_ProducteState extends State<screan_Producte> {
+class _ScreenProductState extends State<ScreenProduct> {
   int quantity = 1;
   num pricePerOne;
   String _MacAddress = 'Unknown';
@@ -64,28 +66,17 @@ class _screan_ProducteState extends State<screan_Producte> {
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
-    double heightQuery = MediaQuery.of(context).size.height;
-    double widthQuery = MediaQuery.of(context).size.width;
-    double fontsize = orientation == Orientation.portrait
-        ? heightQuery * 0.022
-        : widthQuery * 0.022;
-
     return Scaffold(
+
+
       appBar: AppBar(
         elevation: 0,
       ),
 
       //====== bottomNavigationBar =========================================
       bottomNavigationBar: Wid_bottomNavigationBar(
-        numberLCart: "",
-        onTapCart: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => screan_Cart(),
-              ));
-        },
+        numberLCart: "1",
+        onTapCart: ()=> Get.to(screan_Cart()),
         onTapAddToCart: () {
           apiAddCart(
             mac_address: _MacAddress,
@@ -100,9 +91,7 @@ class _screan_ProducteState extends State<screan_Producte> {
       body: FutureBuilder(
         future: apiproduct,
         builder: (context, snapshot) {
-          pricePerOne =
-              double.parse(dataProduct?.productRealPrice ?? "0.000");
-
+          pricePerOne = double.parse(dataProduct?.productRealPrice ?? "0.000");
           if (snapshot.connectionState == ConnectionState.done) {
             return ListView(
               shrinkWrap: true,
@@ -110,58 +99,28 @@ class _screan_ProducteState extends State<screan_Producte> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+
                     //======Slide image Producte ==================
-                    new Container(
-                      height: heightQuery * 0.35,
-                      width: widthQuery,
-                      color: Colors.black12,
-
-                      child :CachedNetworkImage(
-                        fit: BoxFit.fill,
-                        imageUrl: "${dataProduct?.productImagePath ?? ""}",
-                        placeholder: (context, url) => Image.asset("asset/Image/tenor.gif"),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
-
-                      // child: FadeInImage(
-                      //     fit: BoxFit.fill,
-                      //     placeholder: AssetImage("asset/Image/tenor.gif"),
-                      //     image: NetworkImage(
-                      //         "${dataProduct?.productImagePath ?? ""}")),
-
-                    ),
-
-                    new Container(
-                      height: 1,
-                      width: double.infinity,
-                      color: Colors.grey.shade400,
-                    ),
+                    SlideProduct(),
 
                     new SizedBox(height: 15),
 
                     //======== name product ============
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: new Text(
-                        "${dataProduct?.productArName ?? ""}",
-                        style: TextStyle(fontSize: fontsize),
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: an.text("${dataProduct?.productArName ?? ""}"),
                     ),
 
                     //======== Product Description ============
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: new Text("${dataProduct?.productArDesc ?? ""}",
-                          style: TextStyle(
-                              fontSize: fontsize - 4, height: 1.5)),
+                      child: an.text("${dataProduct?.productArDesc ?? ""}",size: an.fontSize()-4,height: 1.5),
                     ),
 
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: new Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 0),
+                        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         height: 70,
                         decoration: BoxDecoration(
@@ -181,10 +140,7 @@ class _screan_ProducteState extends State<screan_Producte> {
                                       Icon(Icons.add, color: anWhite)),
                                 ),
                                 SizedBox(width: 20),
-                                new Text(quantity.toString(),
-                                    style: TextStyle(
-                                        fontSize: fontsize + 2,
-                                        fontFamily: "")),
+                                new Text(quantity.toString(), style: TextStyle(fontSize: an.fontSize()+ 2, fontFamily: "")),
                                 SizedBox(width: 20),
                                 GestureDetector(
                                   onTap: decreaseQuantity,
@@ -202,11 +158,11 @@ class _screan_ProducteState extends State<screan_Producte> {
                               children: <Widget>[
                                 new Text(totalPrice.toStringAsFixed(3),
                                     style: TextStyle(
-                                        fontSize: fontsize + 3,
+                                        fontSize: an.fontSize() + 3,
                                         fontFamily: "BebasNeue")),
                                 new Text("د.ك",
                                     style: TextStyle(
-                                        fontSize: fontsize - 4,
+                                        fontSize: an.fontSize()- 4,
                                         fontFamily: "Almarai")),
                               ],
                             ),
@@ -214,6 +170,8 @@ class _screan_ProducteState extends State<screan_Producte> {
                         ),
                       ),
                     ),
+
+
                   ],
                 ),
               ],

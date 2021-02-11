@@ -6,7 +6,6 @@
   import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
   import 'package:Khaldiya/Model/ModelProductDetails.dart';
   import 'package:http/http.dart' as http;
-  import 'package:shared_preferences/shared_preferences.dart';
 
 
   String UrlApi = "http://khedmtk.com/jabria/api";
