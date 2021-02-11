@@ -1,7 +1,7 @@
 import 'package:Khaldiya/Api/requestApi.dart';
 import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
-import 'package:Khaldiya/View/product/screan_Producte.dart';
+import 'package:Khaldiya/View/Details product/screan_Producte.dart';
 import 'package:flutter/material.dart';
 import '../CustomWidget/MyDrawer.dart';
 import '../CustomWidget/Wid_product.dart';

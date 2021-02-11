@@ -48,6 +48,7 @@ class _ScreenProductState extends State<ScreenProduct> {
     return await apiproductDetails(id: widget.id);
   }
 
+  //============= Funcation Get Mac Address ==========
   Future<void> fun_GetMacAddress() async {
     String macAddress;
     try {
@@ -75,7 +76,7 @@ class _ScreenProductState extends State<ScreenProduct> {
 
       //====== bottomNavigationBar =========================================
       bottomNavigationBar: Wid_bottomNavigationBar(
-        numberLCart: "1",
+        countCart: "22",
         onTapCart: ()=> Get.to(screan_Cart()),
         onTapAddToCart: () {
           apiAddCart(
@@ -84,6 +85,7 @@ class _ScreenProductState extends State<ScreenProduct> {
             productId: widget.id,
             quantity: quantity,
           );
+          print("mac Address:$_MacAddress  price :$totalPrice  productId : ${widget.id}  quantity :$quantity");
         },
       ),
 

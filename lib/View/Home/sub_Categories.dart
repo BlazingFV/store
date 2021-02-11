@@ -3,7 +3,7 @@ import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/View/CustomWidget/Wid_product.dart';
 import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:flutter/material.dart';
-import '../product/screan_Producte.dart';
+import '../Details product/screan_Producte.dart';
 import 'package:get/get.dart';
 
 class sub_Categories extends StatelessWidget {

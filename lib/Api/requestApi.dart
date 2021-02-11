@@ -10,7 +10,6 @@
 
   String UrlApi = "http://khedmtk.com/jabria/api";
 
-  String MacAddress;
 
   // ربط الاقسام التي تحت السلايدر ========
   List dataCategories = [];
@@ -21,7 +20,7 @@
     dataCategories = categories.data;
   }
 
-  // ربط القسم الفرعي التي تحت السلايدر ========
+  // ربط القسم الفرعي ========
   List dataProductCateroy = [];
   Future apiProductCateroy({int id}) async {
     String url = "$UrlApi/get/product/$id";
@@ -58,13 +57,14 @@
       'price': '$price',
     }).then((request) {
       var res = jsonDecode(request.body);
-      if (request.body.contains("message")) {
-        print(res["message"]);
-      } else if (request.body.contains("error")) {
-        print(res["error"]);
-      } else {
-        print("Done");
-      }
+      print(res);
+      // if (request.body.contains("message")) {
+      //   print(res["message"]);
+      // } else if (request.body.contains("error")) {
+      //   print(res["error"]);
+      // } else {
+      //   print("Done");
+      // }
     }).catchError((error) {
       print(error);
     });
@@ -75,10 +75,8 @@
   var getDataCart;
   Future apiGetCart({String macAddress}) async {
     String url = "$UrlApi/get/cart";
-    var response = await http.post(url, headers: {
-      'lang': 'Ar'
-    }, body: {
-      'mac_address': '$macAddress',
+    var response = await http.post(url, headers: {'lang': 'Ar'}, body: {
+      'mac_address': '00000',
     });
     var cart = modelCartFromJson(response.body);
     getCart = cart.data.products;
@@ -114,13 +112,14 @@
       'type' : '$type',
     }).then((request){
       var res =  jsonDecode(request.body);
-      if (request.body.contains("message")) {
-        print(res["message"]);
-      } else if (request.body.contains("error")) {
-        print(res["error"]);
-      } else {
-        print("else");
-      }
+      print(res);
+      // if (request.body.contains("message")) {
+      //   print(res["message"]);
+      // } else if (request.body.contains("error")) {
+      //   print(res["error"]);
+      // } else {
+      //   print("else");
+      // }
     }).catchError((error){
       print("Error $error");
     });

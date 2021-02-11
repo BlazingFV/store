@@ -5,8 +5,8 @@ import '../ToolsApp/WidgetApp.dart';
 class Wid_bottomNavigationBar extends StatelessWidget{
   final Function onTapAddToCart;
   final Function onTapCart;
-  final String numberLCart;
-  const Wid_bottomNavigationBar({Key key, this.onTapAddToCart, this.onTapCart, this.numberLCart}) : super(key: key);
+  final String countCart;
+  const Wid_bottomNavigationBar({Key key, this.onTapAddToCart, this.onTapCart, this.countCart}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class Wid_bottomNavigationBar extends StatelessWidget{
                   Positioned(
                       top: 5,right:10,
                       child: new CircleAvatar(backgroundColor: anBlack,maxRadius: 12,
-                          child: Text("$numberLCart",style: TextStyle(color:anWhite),))
+                          child: Text("$countCart",style: TextStyle(color:anWhite),))
                   )
                 ],
               ),

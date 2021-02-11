@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:get_mac/get_mac.dart';
 import '../ToolsApp/StyleApp.dart';
 import '../CustomWidget/MyDrawer.dart';
-import '../CustomWidget/Wid_ProducteCart.dart';
+import 'Wid_ProducteCart.dart';
 import '../CustomWidget/WidgetApp.dart';
 import 'EmptyCart.dart';
-import 'chekmeny.dart';
+import 'WidgetPrice.dart';
 
 class screan_Cart extends StatefulWidget {
   @override
@@ -16,7 +16,6 @@ class screan_Cart extends StatefulWidget {
 }
 
 class _screan_CartState extends State<screan_Cart> {
-  
   int selectedRadio;
   String _MacAddress = 'Unknown';
 
@@ -50,7 +49,7 @@ class _screan_CartState extends State<screan_Cart> {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: an.text("سلة المشتريات"),
+          title: an.text("سلة المشتريات", color: Colors.white),
           actions: <Widget>[
             FutureBuilder(
               future: apiGetCart(macAddress: _MacAddress),
@@ -71,6 +70,8 @@ class _screan_CartState extends State<screan_Cart> {
 
         //=======MyDrawer======================================================
         drawer: MyDrawer(),
+
+        //=======MyDrawer======================================================
         body: FutureBuilder(
           future: apiGetCart(macAddress: _MacAddress),
           builder: (context, snapshot) {
@@ -131,7 +132,8 @@ class _screan_CartState extends State<screan_Cart> {
                           Widget_checkPrice(),
                         ]);
             }
-            return Center(child: CircularProgressIndicator());
+            return Text("0");
+            // return Center(child: CircularProgressIndicator());
           },
         ));
   }

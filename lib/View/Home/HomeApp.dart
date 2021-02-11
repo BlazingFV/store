@@ -6,7 +6,7 @@ import 'package:Khaldiya/View/Home/sub_Categories.dart';
 import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:Khaldiya/View/cart/screan_Cart.dart';
 import 'package:Khaldiya/View/Categorie/screan_Categorie.dart';
-import 'package:Khaldiya/View/product/screan_Producte.dart';
+import 'package:Khaldiya/View/Details product/screan_Producte.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../CustomWidget/MyDrawer.dart';
