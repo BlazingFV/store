@@ -10,15 +10,41 @@
 
   String UrlApi = "http://khedmtk.com/jabria/api";
 
+  class RemoteServices{
+    static var client = http.Client();
 
-  // ربط الاقسام التي تحت السلايدر ========
-  List dataCategories = [];
-  Future apiCategories() async {
-    String url = "$UrlApi/category";
-    var response = await http.get(url, headers: {'lang': 'ar'});
-    var categories = modelCategoriesFromJson(response.body);
-    dataCategories = categories.data;
+
+    static Future<List<DataCategories>> apiCategorie()async{
+      String url = "$UrlApi/category";
+      var response = await client.get(url,headers: {'Lang' : 'ar'});
+      var jsonString = response.body;
+
+      if(response.statusCode == 200){
+        return modelCategoriesFromJson(jsonString).data;
+      }else{
+        // show error message
+        return null;
+      }
+    }
+
+
+    // ربط الاقسام التي بداخلها المنتجات الي في الصفحة الاولي  ========
+    static Future<List<DataCategoryByP>> apicategoryByProduct ()async{
+      String url = "$UrlApi/categoryByProduct";
+      var response = await client.get(url, headers: {'lang': 'ar'});
+      var jsonString  = response.body;
+
+      if(response.statusCode == 200){
+        return modelCategoryByProductFromJson(response.body).data;
+      }else{
+        return null;
+      }
+    }
+
+
+
   }
+
 
   // ربط القسم الفرعي ========
   List dataProductCateroy = [];
@@ -27,15 +53,6 @@
     var response = await http.get(url, headers: {'lang': 'ar'});
     var productCateroy = modelCateroyproductFromJson(response.body);
     dataProductCateroy = productCateroy.data;
-  }
-
-  // ربط الاقسام التي بداخلها المنتجات الي في الصفحة الاولي  ========
-  List categoryByProduct = [];
-  Future apicategoryByProduct() async {
-    String url = "$UrlApi/categoryByProduct";
-    var response = await http.get(url, headers: {'lang': 'ar'});
-    var dataCategory = modelCategoryByProductFromJson(response.body);
-    categoryByProduct = dataCategory.data;
   }
 
   // تفاصيل المنتج ========

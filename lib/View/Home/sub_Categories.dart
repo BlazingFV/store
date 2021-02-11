@@ -14,12 +14,13 @@ class sub_Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       backgroundColor: Colors.white,
-      initiallyExpanded: true,
+      initiallyExpanded: false,
       maintainState: false,
       childrenPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       expandedAlignment: Alignment.center,
       title: Text("${mainCat.name}", style: TextStyle(fontSize: an.fontSize())),
       children: <Widget>[
+
         new Container(
             height: 270,
             child: ListView.builder(

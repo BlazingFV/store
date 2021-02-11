@@ -1,28 +1,19 @@
 import 'package:Khaldiya/Api/requestApi.dart';
-import 'package:Khaldiya/Model/ModelCategories.dart';
+import 'package:Khaldiya/Control/control_Home.dart';
 import 'package:Khaldiya/Model/ModelCategoryByProduct.dart';
-import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/View/Home/sub_Categories.dart';
 import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:Khaldiya/View/cart/screan_Cart.dart';
-import 'package:Khaldiya/View/Categorie/screan_Categorie.dart';
-import 'package:Khaldiya/View/Details product/screan_Producte.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../CustomWidget/MyDrawer.dart';
-import '../CustomWidget/Wid_product.dart';
-import '../CustomWidget/Wid_Catogry.dart';
 import 'Slider.dart';
 import '../CustomWidget/WidgetApp.dart';
 import 'main_Categories.dart';
+import 'package:get/get.dart';
 
-class HomeApp extends StatefulWidget {
-  static String id = "HomeAppK";
-  @override
-  _HomeAppState createState() => _HomeAppState();
-}
-
-class _HomeAppState extends State<HomeApp> {
+class HomeApp extends StatelessWidget {
+  final control_Home _control = Get.put(control_Home());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +32,7 @@ class _HomeAppState extends State<HomeApp> {
                   context: context,
                   cartLength: getCart.length.toString() ?? "",
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => screan_Cart()));
+                    Get.to(screan_Cart());
                   });
             },
           ),
@@ -50,14 +40,13 @@ class _HomeAppState extends State<HomeApp> {
       ),
 
       //=================================drawer===============
-
       drawer: MyDrawer(),
 
       //=================================body===============
       body: FutureBuilder(
         future: Future.wait([
-          apiCategories(),
-          apicategoryByProduct(),
+          _control.categoryByProduct,
+          _control.categories,
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -66,25 +55,22 @@ class _HomeAppState extends State<HomeApp> {
               slivers: <Widget>[
                 //----SliverList Widget-----------------
 
-                SliverList(delegate: SliverChildListDelegate([
-
+                SliverList(
+                    delegate: SliverChildListDelegate([
                   //==================SlideShow===================
                   Wid_slideShow(),
 
                   //================اقسام التطبيق الفرعية =========================
                   main_Categories(),
-
                 ])),
 
                 //================اقسام التطبيق الفرعية الثانية =========================
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      DataCategoryByP mainCat = categoryByProduct[index];
-                      return sub_Categories(mainCat: mainCat);
-                    },
-                    childCount: categoryByProduct.length == null ? 0 : categoryByProduct.length,
-                  ),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    DataCategoryByP mainCat = _control.listCategoriesByP[index];
+                    return sub_Categories(mainCat: mainCat);
+                  },
+                      childCount: _control.listCategoriesByP.length == null ? 0 : _control.listCategoriesByP.length),
                 )
               ],
             );
