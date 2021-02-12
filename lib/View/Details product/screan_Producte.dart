@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:Khaldiya/Api/requestApi.dart';
+import 'package:Khaldiya/Control/control_Cart.dart';
 import 'package:Khaldiya/View/cart/screan_Cart.dart';
 import 'package:flutter/material.dart';
 import '../ToolsApp/StyleApp.dart';
@@ -22,8 +25,6 @@ class _ScreenProductState extends State<ScreenProduct> {
   num pricePerOne;
   String _MacAddress = 'Unknown';
 
-
-
   void increaseQuantity() {
     quantity++;
     setState(() {});
@@ -41,7 +42,7 @@ class _ScreenProductState extends State<ScreenProduct> {
   void initState() {
     super.initState();
     apiproduct = _apiproductd();
-    fun_GetMacAddress();
+    // fun_GetMacAddress();
   }
 
   _apiproductd() async {
@@ -64,30 +65,35 @@ class _ScreenProductState extends State<ScreenProduct> {
   }
 
 
+  final control_Cart _control = Get.put(control_Cart());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       appBar: AppBar(
         elevation: 0,
       ),
 
       //====== bottomNavigationBar =========================================
-      bottomNavigationBar: Wid_bottomNavigationBar(
-        countCart: "22",
-        onTapCart: ()=> Get.to(screan_Cart()),
-        onTapAddToCart: () {
-          apiAddCart(
-            mac_address: _MacAddress,
-            price: totalPrice,
-            productId: widget.id,
-            quantity: quantity,
-          );
-          print("mac Address:$_MacAddress  price :$totalPrice  productId : ${widget.id}  quantity :$quantity");
-        },
-      ),
+      bottomNavigationBar: Obx((){
+        return Wid_bottomNavigationBar(
+          countCart:_control.conteCrt.toString(),
+          onTapCart: () => Get.to(screan_Cart()),
+          onTapAddToCart: () {
+            apiAddCart(
+              mac_address: _MacAddress,
+              price: totalPrice,
+              productId: widget.id,
+              quantity: quantity,
+            );
+            Timer.periodic(Duration(milliseconds:500), (timer) {
+              _control.fetchCart();
+              timer.cancel();
+            });
+            print("mac Address:$_MacAddress  price :$totalPrice  productId : ${widget.id}  quantity :$quantity");
+          },
+        );
+      }),
 
       //====== bottomNavigationBar =========================================
       body: FutureBuilder(
@@ -101,7 +107,6 @@ class _ScreenProductState extends State<ScreenProduct> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-
                     //======Slide image Producte ==================
                     SlideProduct(),
 
@@ -109,20 +114,23 @@ class _ScreenProductState extends State<ScreenProduct> {
 
                     //======== name product ============
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: an.text("${dataProduct?.productArName ?? ""}"),
                     ),
 
                     //======== Product Description ============
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: an.text("${dataProduct?.productArDesc ?? ""}",size: an.fontSize()-4,height: 1.5),
+                      child: an.text("${dataProduct?.productArDesc ?? ""}",
+                          size: an.fontSize() - 4, height: 1.5),
                     ),
 
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: new Container(
-                        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 0),
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         height: 70,
                         decoration: BoxDecoration(
@@ -138,11 +146,13 @@ class _ScreenProductState extends State<ScreenProduct> {
                                   child: new CircleAvatar(
                                       backgroundColor: anGreen,
                                       maxRadius: 17,
-                                      child:
-                                      Icon(Icons.add, color: anWhite)),
+                                      child: Icon(Icons.add, color: anWhite)),
                                 ),
                                 SizedBox(width: 20),
-                                new Text(quantity.toString(), style: TextStyle(fontSize: an.fontSize()+ 2, fontFamily: "")),
+                                new Text(quantity.toString(),
+                                    style: TextStyle(
+                                        fontSize: an.fontSize() + 2,
+                                        fontFamily: "")),
                                 SizedBox(width: 20),
                                 GestureDetector(
                                   onTap: decreaseQuantity,
@@ -164,7 +174,7 @@ class _ScreenProductState extends State<ScreenProduct> {
                                         fontFamily: "BebasNeue")),
                                 new Text("د.ك",
                                     style: TextStyle(
-                                        fontSize: an.fontSize()- 4,
+                                        fontSize: an.fontSize() - 4,
                                         fontFamily: "Almarai")),
                               ],
                             ),
@@ -172,8 +182,6 @@ class _ScreenProductState extends State<ScreenProduct> {
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
               ],

@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:Khaldiya/Api/requestApi.dart';
+import 'package:Khaldiya/Control/control_Cart.dart';
 import 'package:Khaldiya/Model/ModelCart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get_mac/get_mac.dart';
 import '../ToolsApp/StyleApp.dart';
 import '../CustomWidget/MyDrawer.dart';
@@ -16,8 +20,10 @@ class screan_Cart extends StatefulWidget {
 }
 
 class _screan_CartState extends State<screan_Cart> {
+  final control_Cart _control_cart = Get.put(control_Cart());
   int selectedRadio;
   String _MacAddress = 'Unknown';
+  Future asd;
 
   @override
   void initState() {
@@ -51,15 +57,13 @@ class _screan_CartState extends State<screan_Cart> {
           centerTitle: true,
           title: an.text("سلة المشتريات", color: Colors.white),
           actions: <Widget>[
-            FutureBuilder(
-              future: apiGetCart(macAddress: _MacAddress),
-              builder: (context, snapshot) {
-                return Button_CartAppBar(
-                    context: context,
-                    cartLength: getCart.length.toString() ?? "",
-                    onTap: () {});
-              },
-            ),
+
+            Obx(() => Button_CartAppBar(
+                context: context,
+                cartLength: _control_cart.conteCrt,
+                onTap: () {})),
+
+
             IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed: () {
@@ -95,6 +99,8 @@ class _screan_CartState extends State<screan_Cart> {
                                   qty: product.qty,
                                 ),
 
+
+
                                 onTap_increaseQuantity: () {
                                   setState(() {
                                     apiEditQuantity(
@@ -116,24 +122,26 @@ class _screan_CartState extends State<screan_Cart> {
 
                                 //==== OnTap Delete  product From Cart ===================
                                 onTap_DeleteProduct: () {
-                                  setState(() {
-                                    apiDeleteProduct(
-                                        order_id: getDataCart?.info?.orderId,
-                                        product_order_id: product.id);
+                                  apiDeleteProduct(
+                                      order_id: getDataCart?.info?.orderId,
+                                      product_order_id: product.id
+                                  );
+                                  Timer.periodic(Duration(milliseconds:500), (timer) {
+                                    _control_cart.fetchCart();
+                                    timer.cancel();
                                   });
+
                                 },
                               );
                             },
-                            childCount:
-                                getCart.length == null ? 0 : getCart.length,
+                            childCount: getCart.length == null ? 0 : getCart.length,
                           )),
 
                           //============================== اجمالي الفاتورة / الدفع ======
                           Widget_checkPrice(),
                         ]);
             }
-            return Text("0");
-            // return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           },
         ));
   }

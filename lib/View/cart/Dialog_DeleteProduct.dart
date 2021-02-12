@@ -25,7 +25,10 @@ Future Dialog_DeleteProduct({MProduct Product , Function onTapDelete}){
                     textButton: "نعم",
                     colorButton: Colors.redAccent,
                     fontSize: an.fontSize(),
-                    onTap:onTapDelete
+                    onTap:(){
+                      onTapDelete();
+                      Get.back();
+                    }
                     ),
                 new SizedBox(width: 10),
                 my_Button(

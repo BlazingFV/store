@@ -42,6 +42,20 @@
     }
 
 
+    // Get Cart ================================
+    static Future<List<MProduct>>apiGetCart({String macAddress})async{
+      String url = "$UrlApi/get/cart";
+      var response = await client.post(url, headers: {'lang': 'Ar'}, body: {'mac_address': '00000',});
+      var jsonString = response.body;
+
+      if(response.statusCode ==200){
+        return modelCartFromJson(jsonString).data.products;
+      }else{
+        return null;
+      }
+    }
+
+
 
   }
 
@@ -68,7 +82,7 @@
   Future apiAddCart({productId, quantity, price , mac_address}) async {
     String url = "$UrlApi/add/cart";
     var response = await http.post(url, body: {
-      'mac_address': "$mac_address",
+      'mac_address': "00000",
       'product_id': '$productId',
       'quantity': '$quantity',
       'price': '$price',
@@ -92,9 +106,7 @@
   var getDataCart;
   Future apiGetCart({String macAddress}) async {
     String url = "$UrlApi/get/cart";
-    var response = await http.post(url, headers: {'lang': 'Ar'}, body: {
-      'mac_address': '00000',
-    });
+    var response = await http.post(url, headers: {'lang': 'Ar'}, body: {'mac_address': '00000',});
     var cart = modelCartFromJson(response.body);
     getCart = cart.data.products;
     getDataCart = cart.data;

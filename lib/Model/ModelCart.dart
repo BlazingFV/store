@@ -15,11 +15,11 @@ class ModelCart {
   });
 
   String status;
-  Data data;
+  DataCart data;
 
   factory ModelCart.fromJson(Map<String, dynamic> json) => ModelCart(
     status: json["status"],
-    data: Data.fromJson(json["data"]),
+    data: DataCart.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,8 +28,8 @@ class ModelCart {
   };
 }
 
-class Data {
-  Data({
+class DataCart {
+  DataCart({
     this.info,
     this.products,
     this.totaShippingCost,
@@ -43,7 +43,7 @@ class Data {
   String totalPrice;
   String total;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataCart.fromJson(Map<String, dynamic> json) => DataCart(
     info: Info.fromJson(json["info"]),
     products: List<MProduct>.from(json["products"].map((x) => MProduct.fromJson(x))),
     totaShippingCost: json["totaShippingCost"],

@@ -2,7 +2,7 @@ import 'package:Khaldiya/View/ToolsApp/StyleApp.dart';
 import 'package:flutter/material.dart';
 
 
-Widget Button_CartAppBar({BuildContext context,Function onTap ,String cartLength}) {
+Widget Button_CartAppBar({BuildContext context,Function onTap ,int cartLength}) {
   return GestureDetector(
     onTap:onTap,
     child: new Container(
