@@ -29,8 +29,7 @@ class HomeApp extends StatelessWidget {
         actions: <Widget>[
 
           // هنا الماكن اللي هيحصل فية التغيير
-          Obx((){
-            if(_control_cart.loading.value)
+          Obx((){if(_control_cart.loading.value)
               return Center(child: CircularProgressIndicator(),);
             else
             return  Button_CartAppBar(

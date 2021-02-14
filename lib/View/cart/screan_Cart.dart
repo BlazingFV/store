@@ -20,10 +20,9 @@ class screan_Cart extends StatefulWidget {
 }
 
 class _screan_CartState extends State<screan_Cart> {
-  final control_Cart _control_cart = Get.put(control_Cart());
+  final control_Cart _control = Get.put(control_Cart());
   int selectedRadio;
   String _MacAddress = 'Unknown';
-  Future asd;
 
   @override
   void initState() {
@@ -57,13 +56,10 @@ class _screan_CartState extends State<screan_Cart> {
           centerTitle: true,
           title: an.text("سلة المشتريات", color: Colors.white),
           actions: <Widget>[
-
             Obx(() => Button_CartAppBar(
                 context: context,
-                cartLength: _control_cart.conteCrt,
-                onTap: () {})),
-
-
+                cartLength: _control.conteCrt,
+                onTap: null)),
             IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed: () {
@@ -76,20 +72,21 @@ class _screan_CartState extends State<screan_Cart> {
         drawer: MyDrawer(),
 
         //=======MyDrawer======================================================
-        body: FutureBuilder(
-          future: apiGetCart(macAddress: _MacAddress),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return getCart.isEmpty
-                  ? EmptyCart()
-                  : CustomScrollView(
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      slivers: <Widget>[
-                          //============================= منتجات السلة  =============
-                          SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                            (context, index) {
+        body: Obx((){
+          if(_control.loading.value){
+            return Center(child: CircularProgressIndicator());
+          }else{
+            return  FutureBuilder(
+              future: apiGetCart(macAddress: _MacAddress),
+              builder: (context, snapshot) {
+                return getCart.isEmpty ? EmptyCart() : CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    slivers: <Widget>[
+                      //============================= منتجات السلة  =============
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                                (context, index) {
                               MProduct product = getCart[index];
                               return Wid_ProducteCart(
                                 Product: MProduct(
@@ -99,50 +96,42 @@ class _screan_CartState extends State<screan_Cart> {
                                   qty: product.qty,
                                 ),
 
-
-
+                                //============increaseQuantity===================
                                 onTap_increaseQuantity: () {
-                                  setState(() {
-                                    apiEditQuantity(
-                                      product_order_id: product.id,
-                                      type: "plus",
-                                    );
-                                  });
+                                  apiEditQuantity(product_order_id: product.id, type: "plus",);
+                                  Timer.periodic(Duration(milliseconds: 500),
+                                          (timer) {_control.fetchCart();timer.cancel();
+                                      });
                                 },
 
-                                //===== Increase quantity ========================
+                                //===== decreaseQuantity ========================
                                 onTap_decreaseQuantity: () {
-                                  setState(() {
-                                    apiEditQuantity(
-                                      product_order_id: product.id,
-                                      type: "minus",
-                                    );
-                                  });
+                                  apiEditQuantity(product_order_id: product.id, type: "minus",
+                                  );
+                                  Timer.periodic(Duration(milliseconds: 500),
+                                          (timer) {_control.fetchCart();timer.cancel();
+                                      });
                                 },
 
                                 //==== OnTap Delete  product From Cart ===================
                                 onTap_DeleteProduct: () {
-                                  apiDeleteProduct(
-                                      order_id: getDataCart?.info?.orderId,
-                                      product_order_id: product.id
-                                  );
-                                  Timer.periodic(Duration(milliseconds:500), (timer) {
-                                    _control_cart.fetchCart();
-                                    timer.cancel();
-                                  });
+                                  apiDeleteProduct(order_id: getDataCart?.info?.orderId, product_order_id: product.id);
 
+                                  Timer.periodic(Duration(milliseconds: 500),
+                                          (timer) {_control.fetchCart();timer.cancel();
+                                      });
                                 },
                               );
                             },
-                            childCount: getCart.length == null ? 0 : getCart.length,
+                            childCount: _control.conteCrt == null ? 0 : _control.conteCrt,
                           )),
 
-                          //============================== اجمالي الفاتورة / الدفع ======
-                          Widget_checkPrice(),
-                        ]);
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ));
+                      //============================== اجمالي الفاتورة / الدفع ======
+                      Widget_checkPrice(),
+                    ]);
+              },
+            );
+          }
+        }));
   }
 }

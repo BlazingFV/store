@@ -62,4 +62,6 @@ class an {
 
   //============= height MediaQuery =======================
   static heightQuery() => MediaQuery.of(Get.context).size.height;
+
+
 }

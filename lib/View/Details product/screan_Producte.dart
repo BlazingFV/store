@@ -64,7 +64,6 @@ class _ScreenProductState extends State<ScreenProduct> {
     });
   }
 
-
   final control_Cart _control = Get.put(control_Cart());
 
   @override
@@ -75,9 +74,9 @@ class _ScreenProductState extends State<ScreenProduct> {
       ),
 
       //====== bottomNavigationBar =========================================
-      bottomNavigationBar: Obx((){
+      bottomNavigationBar: Obx(() {
         return Wid_bottomNavigationBar(
-          countCart:_control.conteCrt.toString(),
+          countCart: _control.conteCrt.toString(),
           onTapCart: () => Get.to(screan_Cart()),
           onTapAddToCart: () {
             apiAddCart(
@@ -86,11 +85,11 @@ class _ScreenProductState extends State<ScreenProduct> {
               productId: widget.id,
               quantity: quantity,
             );
-            Timer.periodic(Duration(milliseconds:500), (timer) {
+            Timer.periodic(Duration(milliseconds: 500), (timer) {
               _control.fetchCart();
               timer.cancel();
             });
-            print("mac Address:$_MacAddress  price :$totalPrice  productId : ${widget.id}  quantity :$quantity");
+            // print("mac Address:$_MacAddress  price :$totalPrice  productId : ${widget.id}  quantity :$quantity");
           },
         );
       }),
