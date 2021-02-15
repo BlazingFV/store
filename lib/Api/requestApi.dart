@@ -5,7 +5,9 @@ import 'package:Khaldiya/Model/ModelCategories.dart';
 import 'package:Khaldiya/Model/ModelCategoryByProduct.dart';
 import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/Model/ModelProductDetails.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 String UrlApi = "http://khedmtk.com/jabria/api";
 
@@ -83,9 +85,10 @@ Future apiAddCart({productId, quantity, price, mac_address}) async {
     'price': '$price',
   }).then((request){
     var res = jsonDecode(request.body);
-    print(res);
-    if(res["message"] == "asd"){
-
+    var dfdf = res["message"];
+    print(dfdf);
+    if(dfdf == "Done increasing Quantity"){
+      Get.snackbar("title", "message");
     }
   });
 }
