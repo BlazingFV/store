@@ -50,7 +50,7 @@ class RemoteServices {
     var jsonString = response.body;
 
     // print(jsonString);
-    if (jsonString.contains('status').toString().trim()=='false'.trim()) {
+    if (jsonString.contains('status').toString().tr=='false'.trim()) {
       return modelCartFromJson(jsonString).data.products;
     } else {
       return [];
