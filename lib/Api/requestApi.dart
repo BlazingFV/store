@@ -5,7 +5,6 @@ import 'package:Khaldiya/Model/ModelCategories.dart';
 import 'package:Khaldiya/Model/ModelCategoryByProduct.dart';
 import 'package:Khaldiya/Model/ModelCateroyProduct.dart';
 import 'package:Khaldiya/Model/ModelProductDetails.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
@@ -86,11 +85,16 @@ Future apiAddCart({productId, quantity, price, mac_address}) async {
   }).then((request){
     var res = jsonDecode(request.body);
     var dfdf = res["message"];
+    if(dfdf=='Done added product is successflly'){
+      print("🤒 ddd");
+    }
     print(dfdf);
     if(dfdf == "Done increasing Quantity"){
       Get.snackbar("title", "message");
     }
   });
+
+
 }
 
 //  =============== عرض المنتجات في السلة ========

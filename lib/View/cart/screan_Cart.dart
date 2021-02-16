@@ -70,83 +70,89 @@ class _screan_CartState extends State<screan_Cart> {
         drawer: MyDrawer(),
 
         //=======MyDrawer======================================================
-        body: Obx(() => _control.loading.value
-            ? Center(child: CircularProgressIndicator())
-            : FutureBuilder(
-                future: apiGetCart(macAddress: _MacAddress),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    // return Center(child: CircularProgressIndicator());
-                    return Center();
-                  }
-                  return getCart.isEmpty
-                      ? EmptyCart()
-                      : CustomScrollView(
-                          physics: BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          slivers: <Widget>[
-                              //============================= منتجات السلة  =============
-                              SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  MProduct product = getCart[index];
-                                  return Wid_ProducteCart(
-                                    Product: MProduct(
-                                      price: product.price,
-                                      image: product.image,
-                                      name: product.name,
-                                      qty: product.qty,
-                                    ),
+        body: Obx(() => FutureBuilder(
+              future: apiGetCart(macAddress: _MacAddress),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  // return Center(child: CircularProgressIndicator());
+                  return Center();
+                }
+                return getCart.isEmpty
+                    ? EmptyCart()
+                    : CustomScrollView(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        slivers: <Widget>[
+                            //============================= منتجات السلة  =============
+                          // شوف الجزد دة شايل الصفحة كلها
+                         Obx( ()=>   SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                MProduct product = getCart[index];
+                                return _control.loading.value
+                                    ? Center(child: CircularProgressIndicator())
+                                    : Wid_ProducteCart(
+                                        // هنا الجزء بتاع الداتا
+                                        Product: MProduct(
+                                          price: product.price,
+                                          image: product.image,
+                                          name: product.name,
+                                          qty: product.qty,
+                                        ),
 
-                                    //============increaseQuantity===================
-                                    onTap_increaseQuantity: () {
-                                      apiEditQuantity(
-                                        product_order_id: product.id,
-                                        type: "plus",
+                                        //============increaseQuantity===================
+                                        onTap_increaseQuantity: () {
+                                          apiEditQuantity(
+                                            product_order_id: product.id,
+                                            type: "plus",
+                                          );
+                                          Timer.periodic(
+                                              Duration(milliseconds: 500),
+                                              (timer) {
+                                            _control.fetchCart();
+                                            timer.cancel();
+                                          });
+                                        },
+
+                                        //===== decreaseQuantity ========================
+                                        onTap_decreaseQuantity: () {
+                                          apiEditQuantity(
+                                            product_order_id: product.id,
+                                            type: "minus",
+                                          );
+                                          Timer.periodic(
+                                              Duration(milliseconds: 500),
+                                              (timer) {
+                                            _control.fetchCart();
+                                            timer.cancel();
+                                          });
+                                        },
+
+                                        //==== OnTap Delete  product From Cart ===================
+                                        onTap_DeleteProduct: () {
+                                          apiDeleteProduct(
+                                              order_id:
+                                                  getDataCart?.info?.orderId,
+                                              product_order_id: product.id);
+
+                                          Timer.periodic(
+                                              Duration(milliseconds: 500),
+                                              (timer) {
+                                            _control.fetchCart();
+                                            timer.cancel();
+                                          });
+                                        },
                                       );
-                                      Timer.periodic(
-                                          Duration(milliseconds: 500), (timer) {
-                                        _control.fetchCart();
-                                        timer.cancel();
-                                      });
-                                    },
+                              },
+                              childCount: _control.conteCrt == null
+                                  ? 0
+                                  : _control.conteCrt,
+                            ))),
 
-                                    //===== decreaseQuantity ========================
-                                    onTap_decreaseQuantity: () {
-                                      apiEditQuantity(
-                                        product_order_id: product.id,
-                                        type: "minus",
-                                      );
-                                      Timer.periodic(
-                                          Duration(milliseconds: 500), (timer) {
-                                        _control.fetchCart();
-                                        timer.cancel();
-                                      });
-                                    },
-
-                                    //==== OnTap Delete  product From Cart ===================
-                                    onTap_DeleteProduct: () {
-                                      apiDeleteProduct(
-                                          order_id: getDataCart?.info?.orderId,
-                                          product_order_id: product.id);
-
-                                      Timer.periodic(
-                                          Duration(milliseconds: 500), (timer) {
-                                        _control.fetchCart();
-                                        timer.cancel();
-                                      });
-                                    },
-                                  );
-                                },
-                                childCount: _control.conteCrt == null
-                                    ? 0
-                                    : _control.conteCrt,
-                              )),
-
-                              //============================== اجمالي الفاتورة / الدفع ======
-                              Widget_checkPrice(),
-                            ]);
-                },
-              )));
+                            //============================== اجمالي الفاتورة / الدفع ======
+                            Widget_checkPrice(),
+                          ]);
+              },
+            )));
   }
 }
