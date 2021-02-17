@@ -80,7 +80,7 @@ class _screan_CartState extends State<screan_Cart> {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(child: CircularProgressIndicator());
                 } else
-                  return getCart.length < 1
+                  return _control.conteCrt<1
                       ? EmptyCart()
                       : CustomScrollView(
                           physics: BouncingScrollPhysics(),

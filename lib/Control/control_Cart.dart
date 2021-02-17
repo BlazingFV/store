@@ -14,9 +14,10 @@ class control_Cart extends GetxController {
       var cart = await RemoteServices.apiGetCart();
       if (cart != null) {
         loading(true);
-        update();
+       
         return listCart.assignAll(cart);
-      } else {
+      } 
+      else {
         update();
         return listCart.assignAll([]);
       }

@@ -48,12 +48,15 @@ class RemoteServices {
       'mac_address': '00000',
     });
     var jsonString = response.body;
-
+     print(jsonString);
+     print(jsonString.contains('message'));
     // print(jsonString);
-    if (jsonString.contains('status').toString().tr=='false'.trim()) {
+    if (!jsonString.contains('message')) {
       return modelCartFromJson(jsonString).data.products;
-    } else {
+    } 
+    else  {
       return [];
+      
     }
   }
 }
